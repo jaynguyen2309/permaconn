@@ -75,3 +75,5 @@ Backend:
 - Code need to be well-structured. Currently I'm writing everything in `index.ts`, which can be very messy. I would recommend to have separate folder `controller/`, `service/`, `routes`, etc. That will give us more cleaner strucutre. I would also recommend using classes in order to follow the SOLID principal in developing backend.
 - Unit testing need to mock the database connection instead. Currently it is manipulating the database while running the test, which can create a lot of dummy data.
 - Implementing relationship between tables.
+- When a token is expired, use will have to manually login again to issue a new token. I would recommend a refresh token mechanism to improve the user experience and avoiding long-lasting token. Currently it is being set at 1 day.
+- 1 issue happen when super admin grant new permission to the users is that users will have to logout and login manunally again to generate a new token to have the new permissions. I think we can either 1) have a force logout mechanism to force user re-login again 2) have a flow to generate new token with new permissions.

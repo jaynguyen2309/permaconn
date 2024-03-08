@@ -36,10 +36,11 @@ export default function SuperAdminPage() {
   }, []);
 
   useEffect(() => {
-    if (currentUser?.roles !== "super admin") {
+    if (currentUser && currentUser.roles !== "super admin") {
+      console.log(currentUser?.roles);
       navigate("/");
     }
-  }, [currentUser?.roles, navigate]);
+  }, [currentUser, navigate]);
 
   const columns = [
     {
