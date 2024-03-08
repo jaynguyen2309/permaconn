@@ -2,20 +2,44 @@ import { useEffect, useState } from "react";
 import Table from "../components/Table";
 import UserPermissionsForm from "../components/UserPermissionsForm";
 import { useNavigate } from "react-router-dom";
+import { User } from "../types/user";
 
 export default function SuperAdminPage() {
   const navigate = useNavigate();
   const [users, setUsers] = useState<any[]>([]);
   const [showUserPermissionsForm, setShowUserPermissionsForm] = useState(false);
   const [initialUser, setInitialUser] = useState<any>();
+  const [currentUser, setCurrentUser] = useState<User>();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch("http://localhost:8000/api/users/me", {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setCurrentUser(data))
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+
     fetch("http://localhost:8000/api/users", {
       headers: { Authorization: `${localStorage.getItem("token")}` },
     })
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
+
+  useEffect(() => {
+    if (currentUser?.roles !== "super admin") {
+      navigate("/");
+    }
+  }, [currentUser?.roles, navigate]);
 
   const columns = [
     {
