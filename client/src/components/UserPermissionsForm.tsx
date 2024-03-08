@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import "../css/UserPermissionForm.css";
 interface ProductFormProps {
   onSubmit: (values: any) => void;
   onCancel: () => void;
@@ -36,7 +36,7 @@ export default function UserPermissionsForm({
       const updatedPermissions = [];
       if (productCreatePermission) updatedPermissions.push("product.create");
       if (productUpdatePermission) updatedPermissions.push("product.update");
-  
+
       const response = await fetch(url, {
         method,
         headers: {
@@ -49,7 +49,7 @@ export default function UserPermissionsForm({
       });
       if (response.ok) {
         const updatedUser = await response.json();
-        onSubmit(updatedUser); 
+        onSubmit(updatedUser);
         alert("Permissions updated successfully");
       } else {
         console.error("Failed to update permissions:", response.statusText);
@@ -58,41 +58,38 @@ export default function UserPermissionsForm({
       console.error("Error updating permissions:", error);
     }
   };
-  
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onCancel}>
-          &times;
-        </span>
-        <h2>{initialUser ? "Update" : "Create New"} User Permissions</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <input
-              type="checkbox"
-              checked={productCreatePermission}
-              onChange={() =>
-                setProductCreatePermission(!productCreatePermission)
-              }
-            />
-            Product Create
-          </label>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              checked={productUpdatePermission}
-              onChange={() =>
-                setProductUpdatePermission(!productUpdatePermission)
-              }
-            />
-            Product Update
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+    <div className="user-permissions-form">
+      <span className="close" onClick={onCancel}>
+        &times;
+      </span>
+      <h2>{initialUser ? "Update" : "Create New"} User Permissions</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <input
+            type="checkbox"
+            checked={productCreatePermission}
+            onChange={() =>
+              setProductCreatePermission(!productCreatePermission)
+            }
+          />
+          Product Create
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            checked={productUpdatePermission}
+            onChange={() =>
+              setProductUpdatePermission(!productUpdatePermission)
+            }
+          />
+          Product Update
+        </label>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }

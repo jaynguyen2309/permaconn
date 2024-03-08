@@ -92,19 +92,19 @@ export default function Home() {
       title: "Action",
       dataIndex: "action",
       render: (_column: Columns, row: any) => (
-        <>
+        <div>
           {isLoggedIn && (
-            <>
+            <div>
               <button onClick={() => handleCreateProduct()}>
                 Create product
               </button>
               <button onClick={() => handleUpdateProduct(row)}>
                 Update product
               </button>
-            </>
+            </div>
           )}
           <button onClick={() => addToCart(row)}>Add to cart</button>
-        </>
+        </div>
       ),
     },
   ];
@@ -210,7 +210,7 @@ export default function Home() {
   );
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       {isLoggedIn && (
         <div className="cart-list">
           <h2>Cart</h2>
@@ -237,16 +237,31 @@ export default function Home() {
       {isLoggedIn ? (
         <>
           <h2>Welcome!</h2>
-          <button onClick={handleLogout}>Logout</button>
+          <button
+            onClick={handleLogout}
+            style={{ marginRight: "10px", marginBottom: "10px" }}
+          >
+            Logout
+          </button>
         </>
       ) : (
         <>
           <h2>Login to add/edit/purchase products</h2>
-          <button onClick={handleClick}>Login</button>
+          <button
+            onClick={handleClick}
+            style={{ marginRight: "10px", marginBottom: "10px" }}
+          >
+            Login
+          </button>
         </>
       )}
       {isSuperAdmin && (
-        <button onClick={handleRedirectToSuperAdminPage}>Super admin</button>
+        <button
+          onClick={handleRedirectToSuperAdminPage}
+          style={{ marginRight: "10px", marginBottom: "10px" }}
+        >
+          Super admin
+        </button>
       )}
       <SearchBar searchInput={searchInput} onChange={handleSearchChange} />
       {showProductForm && (

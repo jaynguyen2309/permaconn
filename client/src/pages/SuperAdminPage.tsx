@@ -100,9 +100,11 @@ export default function SuperAdminPage() {
   };
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Super Admin Page</h1>
-      <button onClick={() => navigate("/")}>Back to home page</button>
+      <button onClick={() => navigate("/")} style={{ marginBottom: "10px" }}>
+        Back to home page
+      </button>
       {showUserPermissionsForm && (
         <UserPermissionsForm
           onSubmit={handlePermissionsUpdate}
